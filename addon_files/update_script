@@ -1,0 +1,34 @@
+#!/bin/sh
+
+ADDONS_DIR=/usr/local/addons
+JQ_DIR=$ADDONS_DIR/jq
+LIB_DIR=/usr/local/lib
+BIN_DIR=/usr/local/bin
+RC_DIR=/usr/local/etc/config/rc.d
+
+mount | grep /usr/local 2>&1 >/dev/null
+if [ $? -eq 1 ]; then
+  mount /usr/local
+fi
+
+mkdir -p $ADDONS_DIR && chmod 755 $ADDONS_DIR 
+mkdir -p $LIB_DIR && chmod 755 $LIB_DIR
+mkdir -p $BIN_DIR && chmod 755 $BIN_DIR
+
+
+#
+#   Install addon files
+#
+cp -af jq $ADDONS_DIR/
+
+
+#
+#   Create Links
+#
+ln -sf $JQ_DIR/lib/* $LIB_DIR/
+ln -sf $JQ_DIR/bin/* $BIN_DIR/
+ln -sf $JQ_DIR/rc.d/* $RC_DIR/
+
+
+sync
+exit 0

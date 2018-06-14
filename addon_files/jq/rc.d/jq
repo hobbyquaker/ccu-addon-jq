@@ -1,0 +1,35 @@
+#!/bin/sh
+
+ADDONS_DIR=/usr/local/addons
+JQ_DIR=$ADDONS_DIR/jq
+LIB_DIR=/usr/local/lib
+BIN_DIR=/usr/local/bin
+RC_DIR=/usr/local/etc/config/rc.d
+
+case "$1" in
+
+  info)
+    echo "Info: <center><a target="_blank" href="https://stedolan.github.io/jq/">stedolan.github.io/jq</a></center>"
+    echo "Name: jq"
+    echo "Version: 1.5"
+    echo "Operations: uninstall"
+  ;;
+
+  uninstall)
+    rm $LIB_DIR/libjq.la
+    rm $LIB_DIR/libjq.so
+    rm $LIB_DIR/libjq.so.1
+    rm $LIB_DIR/libjq.so.1.0.4
+    rm $BIN_DIR/jq
+    rm $RC_DIR/jq
+    rm -r $JQ_DIR
+  ;;
+
+  *)
+    echo "Usage: {info|uninstall}" >&2
+    exit 1
+  ;;
+
+esac
+
+exit 0
